@@ -1,0 +1,17 @@
+{% match message %}
+{% when Triggerable::Unloaded with (message) %}
+<div class="message {{ message.role }}">{{ message.content.clone()|markdown }}</div>
+{% when Triggerable::Loaded with ((chat_id, message)) %}
+{% match message %}
+{% when MessageTrigger::User with (message) %}
+<div class="message {{ message.role }}" hx-trigger="load" hx-get="/api/v1/get_response?chat_id={{ chat_id }}"
+    hx-target=".messages" hx-swap="beforeend">{{
+    message.content.clone()|markdown }}</div>
+{% when MessageTrigger::Assistant with ((message_id, message)) %}
+<div class="message {{ message.role }}" hx-ext="sse" sse-connect="/api/v1/message_events/{{ message_id }}"
+    sse-swap="message" hx-swap="beforeend" hx-trigger="load"></div>
+{% endmatch %}
+{% endmatch %}
+<script>
+    messageform.reset();
+</script>

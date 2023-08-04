@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewpo rt" content="width=device-width, initial-scale=1">
+<title>Ross GPT</title>
+<script src="https://unpkg.com/htmx.org@1.9.3"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
+<body>
+    <nav>
+        <button hx-post="/api/v1/new_chat" hx-target="#chats" hx-swap="afterbegin">+ New Chat</button>
+        <div id="chats" hx-get="/api/v1/conversations" hx-trigger="load"></div>
+    </nav>
+    <main>
+
+    </main>
+</body>
+<script src="main.js"></script>
+
+</html>

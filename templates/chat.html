@@ -1,0 +1,11 @@
+<div class="messages">
+    {% for message in chat.messages %}
+    {% include "message.html" %}
+    {% endfor %}
+</div>
+
+<form id="messageform" hx-post="/api/v1/send_message" hx-target=".messages" hx-swap="beforeend">
+    <input type="hidden" name="chat_id" value="{{ chat.id }}">
+    <textarea name="message"></textarea>
+    <button>Send</button>
+</form>
